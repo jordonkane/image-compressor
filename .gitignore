@@ -6,6 +6,8 @@
 
 # Maven
 target/
+\[Help
+mvn
 
 # Log file
 *.log
