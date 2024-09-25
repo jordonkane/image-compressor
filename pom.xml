@@ -7,7 +7,7 @@
     <!-- Project coordinates -->
     <groupId>com.kanej</groupId>
     <artifactId>image-compressor</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version> <!-- OSSRH does not allow -SNAPSHOT for release versions -->
 
     <!-- Project metadata -->
     <name>Image Compressor</name>
@@ -18,6 +18,8 @@
     <properties>
         <maven.compiler.source>16</maven.compiler.source>
         <maven.compiler.target>16</maven.compiler.target>
+        <gpg.executable>gpg</gpg.executable>
+        <gpg.passphrase>${env.GPG_PASSPHRASE}</gpg.passphrase> <!-- Environment variable for GPG passphrase -->
     </properties>
 
     <!-- Dependencies -->
@@ -41,6 +43,18 @@
     <build>
         <plugins>
 
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.7</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+
             <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -52,7 +66,37 @@
                 </configuration>
             </plugin>
 
-            <!-- GPG Plugin for signing artifacts (if publishing to Maven Central) -->
+            <!-- Plugin to generate the sources JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Plugin to generate the Javadoc JAR -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- GPG Plugin for signing artifacts (required by Maven Central) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -67,7 +111,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <keyname>0D09AFA5DFEE9CBA</keyname> <!-- Use your GPG Key ID here -->
+                    <keyname>0D09AFA5DFEE9CBA</keyname> <!-- Replace with your actual GPG Key ID -->
                 </configuration>
             </plugin>
 
@@ -111,7 +155,7 @@
                             </execution>
                         </executions>
                         <configuration>
-                            <keyname>0D09AFA5DFEE9CBA</keyname> <!-- Use your GPG Key ID here for releases -->
+                            <keyname>0D09AFA5DFEE9CBA</keyname> <!-- Replace with your GPG Key ID for releases -->
                         </configuration>
                     </plugin>
                 </plugins>
@@ -126,5 +170,30 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+
+    <!-- License Information (required for OSSRH) -->
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>http://opensource.org/licenses/MIT</url>
+        </license>
+    </licenses>
+
+    <!-- Developer Information (required for OSSRH) -->
+    <developers>
+        <developer>
+            <name>Your Name</name>
+            <email>youremail@example.com</email>
+            <organization>Your Organization</organization>
+            <organizationUrl>http://www.example.com</organizationUrl>
+        </developer>
+    </developers>
+
+    <!-- SCM Information (required for OSSRH) -->
+    <scm>
+        <connection>scm:git:git://github.com/kanej/image-compressor.git</connection>
+        <developerConnection>scm:git:ssh://github.com:kanej/image-compressor.git</developerConnection>
+        <url>https://github.com/kanej/image-compressor</url>
+    </scm>
 
 </project>
