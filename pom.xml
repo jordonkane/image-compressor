@@ -35,8 +35,6 @@
             <version>5.7.0</version>
             <scope>test</scope>
         </dependency>
-
-        <!-- Add more dependencies as needed -->
     </dependencies>
 
     <!-- Build configuration -->
@@ -68,6 +66,9 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <keyname>0D09AFA5DFEE9CBA</keyname> <!-- Use your GPG Key ID here -->
+                </configuration>
             </plugin>
 
             <!-- Maven Deploy Plugin for deploying to Maven Central -->
@@ -109,22 +110,10 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <keyname>0D09AFA5DFEE9CBA</keyname> <!-- Use your GPG Key ID here for releases -->
+                        </configuration>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.6</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
                 </plugins>
             </build>
         </profile>
