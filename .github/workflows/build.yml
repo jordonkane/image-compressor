@@ -1,0 +1,43 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches:
+      - main  # Run this action on pushes to the main branch
+  pull_request:
+    branches:
+      - main  # Run this action on pull requests to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Use the latest Ubuntu image for the build
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v3  # Checkout the repository
+
+    - name: Set up JDK 16
+      uses: actions/setup-java@v3  # Use Java 16
+      with:
+        distribution: 'adopt'  # Use AdoptOpenJDK
+        java-version: '16'  # Set Java version to 16
+
+    - name: Cache Maven dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+
+    - name: Build with Maven
+      run: mvn clean install -Dgpg.skip=true  # Run Maven build, skipping GPG signing for now
+
+    - name: Run tests with Maven
+      run: mvn test  # Run the tests to ensure everything works
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: target/surefire-reports  # Upload test results as an artifact for review
