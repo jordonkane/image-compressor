@@ -1,51 +1,31 @@
-name: CI/CD Pipeline
+name: Deploy to Maven Central
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
-  workflow_dispatch:  # Allows manual triggering of the workflow
-  release:
-    types: [created]
+    tags:
+      - 'v*'    # Triggers on tags starting with 'v', e.g., 'v1.0', 'v1.1.0', etc.
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the code
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK 16
+      - name: Set up Java
         uses: actions/setup-java@v2
         with:
-          distribution: 'temurin'
           java-version: '16'
-
-      - name: Cache Maven dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-maven
+          distribution: 'adopt'
 
       - name: Build with Maven
-        run: mvn clean verify -Dgpg.skip=true
+        run: mvn clean install
 
-      - name: Import GPG key
-        run: |
-          echo "${{ secrets.GPG_PRIVATE_KEY }}" | gpg --batch --import
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-
-      - name: Build and Deploy to Maven Central
-        run: mvn clean deploy -P release -Dgpg.passphrase="${{ secrets.GPG_PASSPHRASE }}"
+      - name: Deploy to Maven Central
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-
-      - name: Verify Deployment Success
-        run: echo "Deployment to Maven Central completed"
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_KEY_PASSPHRASE: ${{ secrets.GPG_KEY_PASSPHRASE }}
+        run: mvn deploy -P release
