@@ -3,10 +3,10 @@ name: Java CI with Maven
 on:
   push:
     branches:
-      - main  # Run this action on pushes to the main branch
+      - master  # Run this action on pushes to the master branch
   pull_request:
     branches:
-      - main  # Run this action on pull requests to the main branch
+      - master  # Run this action on pull requests to the master branch
 
 jobs:
   build:
