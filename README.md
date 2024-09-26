@@ -18,7 +18,7 @@ The **ImageCompressor** processes images step-by-step, applying several key tran
 - **Huffman Encoding**: Encodes quantized coefficients using Huffman encoding for compression.
   
 ## Prerequisites
-1. **Java 11 or later** installed.
+1. **Java 16 or later** installed.
 2. A basic understanding of image compression algorithms (for contributing).
 
 ## Installation
