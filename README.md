@@ -31,11 +31,11 @@ The **ImageCompressor** processes images step-by-step, applying several key tran
 ## Installation
 1. Clone this repository to your local machine:
    ```
-   git clone https://github.com/jordonkane/ImageCompressor.git
+   git clone https://github.com/jordonkane/image-compressor.git
    ```
 2. Navigate into the project directory:
    ```
-   cd ImageCompressor
+   cd image-compressor
    ```
 3. Build the project using Maven:
    ```
