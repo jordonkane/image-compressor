@@ -5,17 +5,24 @@
 - **RGB to YCbCr Color Conversion**: Converts image colors from RGB to YCbCr, separating brightness and color information.
 - **Discrete Cosine Transform (DCT)**: Converts 8x8 blocks of image data into frequency components.
 - **Quantization**: Reduces the precision of DCT coefficients for efficient compression.
-- **Huffman Encoding**: Compresses quantized data for reduced file size.
+- **Run-Length & Huffman Encoding**: Compresses quantized data for reduced file size.
 - **Support for Multiple Image Formats**: Supports PNG, BMP, and other input formats, converting them to JPEG.
 
 ## How It Works
 The **ImageCompressor** processes images step-by-step, applying several key transformations and encoding techniques to achieve JPEG compression. This involves converting images to the YCbCr color space, performing the **Discrete Cosine Transform (DCT)** on 8x8 blocks of image data, **quantizing** the coefficients to reduce precision, and applying **Huffman encoding** to the resulting data.
 
-#### Key Functionalities:
-- **Color Space Conversion**: Converts RGB images to YCbCr, separating brightness from color information.
-- **Discrete Cosine Transform**: Transforms pixel intensity values into frequency domain data.
+### Key Functionalities:
+#### **Color Space Conversion**: Converts RGB images to YCbCr, separating brightness from color information.
+![a-RGB-Color-Space-7-b-YCbCr-Color-Space-8](https://github.com/user-attachments/assets/a513dba8-b56e-4d30-acb0-5958c6ab5ace)
+
+#### **Discrete Cosine Transform**: Transforms pixel intensity values into frequency domain data.
+![image](https://github.com/user-attachments/assets/03a1a951-e20b-438e-866b-4ce1fdf2c908)
+![1_ismt-a_9J__gHRoWvzRDNg](https://github.com/user-attachments/assets/61c2e200-7878-4158-a6af-a64e260c5c19)
+
 - **Quantization**: Reduces DCT coefficients' precision, discarding insignificant high-frequency components.
-- **Huffman Encoding**: Encodes quantized coefficients using Huffman encoding for compression.
+- **Run-Length & Huffman Encoding**: Encodes quantized coefficients using Huffman encoding for compression.
+
+
   
 ## Prerequisites
 1. **Java 16 or later** installed.
