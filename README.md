@@ -1,4 +1,4 @@
-# ImageCompressor
+# ImageCompressor - JPEG Image Compression Library 🖼️
 **ImageCompressor** 🖼️ is a Java library that allows users to compress images using the **JPEG** compression algorithm, including color space conversion, Discrete Cosine Transform (DCT), quantization, and Huffman encoding.
 
 ## Features
