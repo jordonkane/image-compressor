@@ -13,9 +13,13 @@ The **ImageCompressor** processes images step-by-step, applying several key tran
 
 ### Key Functionalities:
 #### **Color Space Conversion**: Converts RGB images to YCbCr, separating brightness from color information.
+Here is a visual represntation of the **RGB Color Space**:
+
 ![a-RGB-Color-Space-7-b-YCbCr-Color-Space-8](https://github.com/user-attachments/assets/a513dba8-b56e-4d30-acb0-5958c6ab5ace)
 
 #### **Discrete Cosine Transform**: Transforms pixel intensity values into frequency domain data.
+This is what the method `DCT.ApplyDCT();` does:
+
 ![image](https://github.com/user-attachments/assets/03a1a951-e20b-438e-866b-4ce1fdf2c908)
 ![1_ismt-a_9J__gHRoWvzRDNg](https://github.com/user-attachments/assets/61c2e200-7878-4158-a6af-a64e260c5c19)
 
