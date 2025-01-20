@@ -85,7 +85,6 @@ Contributions are welcome! If you would like to contribute to ImageCompressor, f
 - Add more configurable compression options (e.g., different quality levels).
 
 ### Known Issues
-- Current version does not fully implement the saving of compressed data in JPEG format (this will be improved in future versions).
 - Not optimized for very large image sizes—may require performance tuning for large datasets.
 
 ## License
